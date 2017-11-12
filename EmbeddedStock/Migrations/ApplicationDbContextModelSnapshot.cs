@@ -55,11 +55,11 @@ namespace EmbeddedStock.Migrations
 
                     b.Property<string>("AdminComment");
 
-                    b.Property<int>("ComponentNumber");
-
                     b.Property<long>("ComponentTypeId");
 
                     b.Property<long?>("CurrentLoanInformationId");
+
+                    b.Property<int>("Number");
 
                     b.Property<string>("SerialNo");
 
@@ -81,19 +81,19 @@ namespace EmbeddedStock.Migrations
 
                     b.Property<string>("AdminComment");
 
-                    b.Property<string>("ComponentInfo");
-
-                    b.Property<string>("ComponentName");
-
                     b.Property<string>("Datasheet");
 
                     b.Property<long?>("ImageESImageId");
 
                     b.Property<string>("ImageUrl");
 
+                    b.Property<string>("Info");
+
                     b.Property<string>("Location");
 
                     b.Property<string>("Manufacturer");
+
+                    b.Property<string>("Name");
 
                     b.Property<int>("Status");
 
@@ -137,7 +137,7 @@ namespace EmbeddedStock.Migrations
 
             modelBuilder.Entity("EmbeddedStock.Models.Component", b =>
                 {
-                    b.HasOne("EmbeddedStock.Models.ComponentType")
+                    b.HasOne("EmbeddedStock.Models.ComponentType", "ComponentType")
                         .WithMany("Components")
                         .HasForeignKey("ComponentTypeId")
                         .OnDelete(DeleteBehavior.Cascade);

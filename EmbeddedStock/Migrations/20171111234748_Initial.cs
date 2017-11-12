@@ -43,13 +43,13 @@ namespace EmbeddedStock.Migrations
                     ComponentTypeId = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     AdminComment = table.Column<string>(type: "TEXT", nullable: true),
-                    ComponentInfo = table.Column<string>(type: "TEXT", nullable: true),
-                    ComponentName = table.Column<string>(type: "TEXT", nullable: true),
                     Datasheet = table.Column<string>(type: "TEXT", nullable: true),
                     ImageESImageId = table.Column<long>(type: "INTEGER", nullable: true),
                     ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
+                    Info = table.Column<string>(type: "TEXT", nullable: true),
                     Location = table.Column<string>(type: "TEXT", nullable: true),
                     Manufacturer = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
                     Status = table.Column<int>(type: "INTEGER", nullable: false),
                     WikiLink = table.Column<string>(type: "TEXT", nullable: true)
                 },
@@ -96,9 +96,9 @@ namespace EmbeddedStock.Migrations
                     ComponentId = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     AdminComment = table.Column<string>(type: "TEXT", nullable: true),
-                    ComponentNumber = table.Column<int>(type: "INTEGER", nullable: false),
                     ComponentTypeId = table.Column<long>(type: "INTEGER", nullable: false),
                     CurrentLoanInformationId = table.Column<long>(type: "INTEGER", nullable: true),
+                    Number = table.Column<int>(type: "INTEGER", nullable: false),
                     SerialNo = table.Column<string>(type: "TEXT", nullable: true),
                     Status = table.Column<int>(type: "INTEGER", nullable: false),
                     UserComment = table.Column<string>(type: "TEXT", nullable: true)
