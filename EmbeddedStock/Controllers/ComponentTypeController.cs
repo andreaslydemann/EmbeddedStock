@@ -87,7 +87,7 @@ namespace EmbeddedStock.Controllers
         {
             var componentTypeVM = new ComponentTypeViewModel();
 
-            componentTypeVM.AllCategories = _context.Categories.ToList().Select(
+            componentTypeVM.Categories = _context.Categories.ToList().Select(
             cat => new SelectListItem {
                 Text = cat.Name,
                 Value = cat.CategoryId.ToString()
@@ -130,6 +130,108 @@ namespace EmbeddedStock.Controllers
 
             _context.Add(componentTypeVM.ComponentType);
             await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: ComponentType/Edit/5
+        public async Task<IActionResult> Edit(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var componentType = await _context.ComponentTypes
+                .SingleOrDefaultAsync(m => m.ComponentTypeId == id);
+
+            if (componentType == null)
+            {
+                return NotFound();
+            }
+
+            var categoryIds = _context.CategoryComponentType.Where(x => x.ComponentTypeId == componentType.ComponentTypeId).Select(i => i.CategoryId).ToList();
+
+            var categories = new List<string>();
+            foreach (var categoryId in categoryIds)
+            {
+                var category = _context.Categories.Where(x => x.CategoryId == id).Select(x => x.Name).FirstOrDefault();
+
+                if (category != null)
+                    categories.Add(category);
+            }
+
+            var componentTypeVM = new ComponentTypeViewModel()
+            {
+                ComponentType = componentType,
+                SelectedCategories = categories,
+                Categories = _context.Categories.ToList().Select(
+                    cat => new SelectListItem
+                    {
+                        Text = cat.Name,
+                        Value = cat.CategoryId.ToString()
+                    }).ToList()
+            };
+
+            return View(componentTypeVM);
+        }
+
+        // POST: ComponentType/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(ComponentTypeViewModel componentTypeVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(componentTypeVM);
+            }
+
+            var id = componentTypeVM.ComponentType.ComponentTypeId;
+
+            try
+            {
+                _context.CategoryComponentType.RemoveRange(
+                        _context.CategoryComponentType.Where(x => x.ComponentTypeId == id));
+
+                if(componentTypeVM.SelectedCategories != null)
+                {
+                    var selectedCategories = _context.Categories
+                    .Where(x => componentTypeVM.SelectedCategories
+                           .Contains(x.CategoryId.ToString()));
+
+                    var cctList = new List<CategoryComponentType>();
+
+                    foreach (var selectedCategory in selectedCategories)
+                    {
+                        var cct = new CategoryComponentType
+                        {
+                            CategoryId = selectedCategory.CategoryId,
+                            ComponentType = componentTypeVM.ComponentType
+                        };
+
+                        cctList.Add(cct);
+                    }
+
+                    componentTypeVM.ComponentType.CategoryComponentTypes = cctList;
+                }
+
+                _context.Update(componentTypeVM.ComponentType);
+
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ComponentTypeExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             return RedirectToAction(nameof(Index));
         }

@@ -11,6 +11,6 @@ namespace EmbeddedStock.ViewModels
 
         public List<string> SelectedCategories { get; set; }
 
-        public List<SelectListItem> AllCategories { get; set; }
+        public List<SelectListItem> Categories { get; set; }
     }
 }
