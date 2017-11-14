@@ -11,7 +11,7 @@ using System;
 namespace EmbeddedStock.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171111234748_Initial")]
+    [Migration("20171114124940_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

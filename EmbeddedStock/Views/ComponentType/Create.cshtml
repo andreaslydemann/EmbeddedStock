@@ -60,8 +60,8 @@
                 <span asp-validation-for="ComponentType.AdminComment" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Categories" class="control-label"></label>
-                <select asp-for="@Model.SelectedCategories" multiple="multiple" asp-items="@Model.Categories" class="form-control"></select>
+                <label asp-for="AllCategories" class="control-label"></label>
+                <select asp-for="@Model.SelectedCategories" multiple="multiple" asp-items="@Model.AllCategories" class="form-control"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

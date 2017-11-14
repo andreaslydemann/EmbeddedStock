@@ -22,12 +22,28 @@ namespace EmbeddedStock.Controllers
         }
 
         // GET: ComponentType
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var componentTypes = await _context.ComponentTypes
-                .Include(cct => cct.CategoryComponentTypes).ThenInclude(c => c.Category).ToListAsync();
+            var componentTypeVMList = new List<ComponentTypeViewModel>();
 
-            return View(componentTypes);
+            foreach(var componentType in _context.ComponentTypes.ToList())
+            {
+                var categoryIds = _context.CategoryComponentType.Where(x => x.ComponentTypeId == componentType.ComponentTypeId).Select(i => i.CategoryId).ToList();
+
+                var categories = new List<string>();
+                foreach (var categoryId in categoryIds)
+                    categories.Add(_context.Categories.Where(x => x.CategoryId == categoryId).Select(x => x.Name).FirstOrDefault());
+
+                var componentTypeVM = new ComponentTypeViewModel()
+                {
+                    ComponentType = componentType,
+                    SelectedCategories = categories
+                };
+
+                componentTypeVMList.Add(componentTypeVM);
+            }
+
+            return View(componentTypeVMList);
         }
 
         // GET: ComponentType/Details/5
@@ -39,15 +55,31 @@ namespace EmbeddedStock.Controllers
             }
 
             var componentType = await _context.ComponentTypes
-                .Include(t => t.CategoryComponentTypes)
-                .ThenInclude(t => t.Category)
                 .SingleOrDefaultAsync(m => m.ComponentTypeId == id);
+
             if (componentType == null)
             {
                 return NotFound();
             }
 
-            return View(componentType);
+            var categoryIds = _context.CategoryComponentType.Where(x => x.ComponentTypeId == componentType.ComponentTypeId).Select(i => i.CategoryId).ToList();
+
+            var categories = new List<string>();
+            foreach (var categoryId in categoryIds)
+            {
+                var category = _context.Categories.Where(x => x.CategoryId == id).Select(x => x.Name).FirstOrDefault();
+
+                if(category != null)
+                    categories.Add(category);
+            }
+
+            var componentTypeVM = new ComponentTypeViewModel()
+            {
+                ComponentType = componentType,
+                SelectedCategories = categories
+            };
+
+            return View(componentTypeVM);
         }
 
         // GET: ComponentType/Create
@@ -55,7 +87,7 @@ namespace EmbeddedStock.Controllers
         {
             var componentTypeVM = new ComponentTypeViewModel();
 
-            componentTypeVM.Categories = _context.Categories.ToList().Select(
+            componentTypeVM.AllCategories = _context.Categories.ToList().Select(
             cat => new SelectListItem {
                 Text = cat.Name,
                 Value = cat.CategoryId.ToString()
@@ -100,6 +132,42 @@ namespace EmbeddedStock.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        // GET: ComponentType/Delete/5
+        public async Task<IActionResult> Delete(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var componentType = await _context.ComponentTypes
+                .SingleOrDefaultAsync(m => m.ComponentTypeId == id);
+
+            if (componentType == null)
+            {
+                return NotFound();
+            }
+
+            var categoryIds = _context.CategoryComponentType.Where(x => x.ComponentTypeId == componentType.ComponentTypeId).Select(i => i.CategoryId).ToList();
+
+            var categories = new List<string>();
+            foreach (var categoryId in categoryIds)
+            {
+                var category = _context.Categories.Where(x => x.CategoryId == id).Select(x => x.Name).FirstOrDefault();
+
+                if (category != null)
+                    categories.Add(category);
+            }
+
+            var componentTypeVM = new ComponentTypeViewModel()
+            {
+                ComponentType = componentType,
+                SelectedCategories = categories
+            };
+
+            return View(componentTypeVM);
         }
 
         // POST: ComponentType/Delete/5

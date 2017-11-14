@@ -1,4 +1,4 @@
-@model EmbeddedStock.Models.ComponentType
+@model EmbeddedStock.ViewModels.ComponentTypeViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -10,80 +10,75 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.ComponentType.Name)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.ComponentType.Name)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Info)
+            @Html.DisplayNameFor(model => model.ComponentType.Info)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Info)
+            @Html.DisplayFor(model => model.ComponentType.Info)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Location)
+            @Html.DisplayNameFor(model => model.ComponentType.Location)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Location)
+            @Html.DisplayFor(model => model.ComponentType.Location)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Status)
+            @Html.DisplayNameFor(model => model.ComponentType.Status)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Status)
+            @Html.DisplayFor(model => model.ComponentType.Status)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Datasheet)
+            @Html.DisplayNameFor(model => model.ComponentType.Datasheet)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Datasheet)
+            @Html.DisplayFor(model => model.ComponentType.Datasheet)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ImageUrl)
+            @Html.DisplayNameFor(model => model.ComponentType.ImageUrl)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ImageUrl)
+            @Html.DisplayFor(model => model.ComponentType.ImageUrl)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Manufacturer)
+            @Html.DisplayNameFor(model => model.ComponentType.Manufacturer)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Manufacturer)
+            @Html.DisplayFor(model => model.ComponentType.Manufacturer)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.WikiLink)
+            @Html.DisplayNameFor(model => model.ComponentType.WikiLink)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.WikiLink)
+            @Html.DisplayFor(model => model.ComponentType.WikiLink)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.AdminComment)
+            @Html.DisplayNameFor(model => model.ComponentType.AdminComment)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.AdminComment)
-        </dd>
-        <dd>
-            <br />
+            @Html.DisplayFor(model => model.ComponentType.AdminComment)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.CategoryComponentTypes)
+            Categories
         </dt>
         <dd>
             <ul>
-                @foreach (var category in Model.CategoryComponentTypes)
+				@foreach (var category in Model.SelectedCategories)
                 {
-                    <li>
-                        <a asp-controller="Category" asp-action="Details" asp-route-id="@category.CategoryId">
-                            @category.Category.Name
-                        </a>
-                    </li>
+				    <li>
+                        <p style="margin-bottom: 0;">@category</p>
+				    </li>
                 }
             </ul>
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ComponentTypeId">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.ComponentType.ComponentTypeId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
