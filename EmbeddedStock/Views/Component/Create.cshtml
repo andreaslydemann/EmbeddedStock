@@ -1,60 +1,52 @@
-﻿@model Mvc.ViewModels.ComponentViewModel
+@using EmbeddedStock.Models.Enums;
+
+@model EmbeddedStock.Models.Component
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h2>Create component</h2>
+<h2>Create</h2>
 
+<h4>Component</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Component.Number" class="control-label"></label>
-                <input asp-for="Component.Number" class="form-control" />
-                <span asp-validation-for="Component.Number" class="text-danger"></span>
+                <label asp-for="Number" class="control-label"></label>
+                <input asp-for="Number" class="form-control" />
+                <span asp-validation-for="Number" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Component.SerialNo" class="control-label"></label>
-                <input asp-for="Component.SerialNo" class="form-control" />
-                <span asp-validation-for="Component.SerialNo" class="text-danger"></span>
+                <label asp-for="SerialNo" class="control-label"></label>
+                <input asp-for="SerialNo" class="form-control" />
+                <span asp-validation-for="SerialNo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Component.Status" class="control-label"></label>
-                <select asp-for="Component.Status" class="form-control">
-                    <option value="1">Available      </option>
-                    <option value="2">ReservedLoaner </option>
-                    <option value="3">ReservedAdmin  </option>
-                    <option value="4">Loaned         </option>
-                    <option value="5">Defect         </option>
-                    <option value="6">Trashed        </option>
-                    <option value="7">Lost           </option>
-                    <option value="8">NeverReturned  </option>
-                </select>
-                <span asp-validation-for="Component.Status" class="text-danger"></span>
+                <label asp-for="Status" class="control-label"></label>
+                <select asp-for="Status" asp-items="Html.GetEnumSelectList<ComponentStatus>()" class="form-control"></select>
+                <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Component.AdminComment" class="control-label"></label>
-                <input asp-for="Component.AdminComment" class="form-control" />
-                <span asp-validation-for="Component.AdminComment" class="text-danger"></span>
+                <label asp-for="AdminComment" class="control-label"></label>
+                <input asp-for="AdminComment" class="form-control" />
+                <span asp-validation-for="AdminComment" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Component.ComponentType" class="control-label"></label>
-                <select asp-for="ComponentTypeId" asp-items="Model.Types" class="form-control">
-                </select>
+                <label asp-for="UserComment" class="control-label"></label>
+                <input asp-for="UserComment" class="form-control" />
+                <span asp-validation-for="UserComment" class="text-danger"></span>
+            </div>
+			<div class="form-group">
+                <label asp-for="ComponentTypeId" class="control-label"></label>
+                <select asp-for="ComponentTypeId" class ="form-control" asp-items="ViewBag.ComponentTypeId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Component.UserComment" class="control-label"></label>
-                <input asp-for="Component.UserComment" class="form-control" />
-                <span asp-validation-for="Component.UserComment" class="text-danger"></span>
-            </div>
-            <div class=""></div>
-            <div class="form-group">
-                <label asp-for="Component.CurrentLoanInformationId" class="control-label"></label>
-                <input asp-for="Component.CurrentLoanInformationId" class="form-control" />
-                <span asp-validation-for="Component.CurrentLoanInformationId" class="text-danger"></span>
+                <label asp-for="CurrentLoanInformationId" class="control-label"></label>
+                <input asp-for="CurrentLoanInformationId" class="form-control" />
+                <span asp-validation-for="CurrentLoanInformationId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

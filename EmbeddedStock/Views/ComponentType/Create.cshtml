@@ -1,0 +1,79 @@
+@using EmbeddedStock.Models.Enums;
+
+@model EmbeddedStock.ViewModels.ComponentTypeViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Component Types</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ComponentType.Name" class="control-label"></label>
+                <input asp-for="ComponentType.Name" class="form-control" />
+                <span asp-validation-for="ComponentType.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ComponentType.Info" class="control-label"></label>
+                <input asp-for="ComponentType.Info" class="form-control" />
+                <span asp-validation-for="ComponentType.Info" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ComponentType.Location" class="control-label"></label>
+                <input asp-for="ComponentType.Location" class="form-control" />
+                <span asp-validation-for="ComponentType.Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ComponentType.Status" class="control-label"></label>
+                <select asp-for="ComponentType.Status" asp-items="Html.GetEnumSelectList<ComponentStatus>()" class="form-control"></select>
+                <span asp-validation-for="ComponentType.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ComponentType.Datasheet" class="control-label"></label>
+                <input asp-for="ComponentType.Datasheet" class="form-control" />
+                <span asp-validation-for="ComponentType.Datasheet" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ComponentType.ImageUrl" class="control-label"></label>
+                <input asp-for="ComponentType.ImageUrl" class="form-control" />
+                <span asp-validation-for="ComponentType.ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ComponentType.Manufacturer" class="control-label"></label>
+                <input asp-for="ComponentType.Manufacturer" class="form-control" />
+                <span asp-validation-for="ComponentType.Manufacturer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ComponentType.WikiLink" class="control-label"></label>
+                <input asp-for="ComponentType.WikiLink" class="form-control" />
+                <span asp-validation-for="ComponentType.WikiLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ComponentType.AdminComment" class="control-label"></label>
+                <input asp-for="ComponentType.AdminComment" class="form-control" />
+                <span asp-validation-for="ComponentType.AdminComment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Categories" class="control-label"></label>
+                <select asp-for="@Model.SelectedCategories" multiple="multiple" asp-items="@Model.Categories" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,4 +1,10 @@
+.active-link {
+    color: #ffffff;
+    background-color: #1a242f !important;
+}
+
 .body-content {
+    padding-top: 45px;
     padding-left: 15px;
     padding-right: 15px;
 }

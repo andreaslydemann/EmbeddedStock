@@ -1,0 +1,89 @@
+@model EmbeddedStock.Models.ComponentType
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Info)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Info)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Datasheet)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Datasheet)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ImageUrl)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Manufacturer)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Manufacturer)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WikiLink)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.WikiLink)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AdminComment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AdminComment)
+        </dd>
+        <dd>
+            <br />
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryComponentTypes)
+        </dt>
+        <dd>
+            <ul>
+                @foreach (var category in Model.CategoryComponentTypes)
+                {
+                    <li>
+                        <a asp-controller="Category" asp-action="Details" asp-route-id="@category.CategoryId">
+                            @category.Category.Name
+                        </a>
+                    </li>
+                }
+            </ul>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ComponentTypeId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

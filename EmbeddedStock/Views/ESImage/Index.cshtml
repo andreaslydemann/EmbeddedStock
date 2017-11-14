@@ -1,0 +1,47 @@
+@model IEnumerable<EmbeddedStock.Models.ESImage>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>ES Images</h3>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageMimeType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Thumbnail)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageData)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageMimeType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Thumbnail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageData)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ESImageId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ESImageId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ESImageId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

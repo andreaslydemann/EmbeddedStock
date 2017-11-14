@@ -1,0 +1,42 @@
+@model EmbeddedStock.Models.Category
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Category</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dd>
+            <br />
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryComponentTypes)
+        </dt>
+        <dd>
+            <ul>
+                @foreach (var cct in Model.CategoryComponentTypes)
+                {
+                    <li>
+                        <a asp-controller="ComponentType" asp-action="Details" asp-route-id="@cct.ComponentTypeId">
+                            @cct.ComponentType.Name
+                        </a>
+                    </li>
+                }
+            </ul>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.CategoryId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

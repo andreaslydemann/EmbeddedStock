@@ -10,23 +10,22 @@ using EmbeddedStock.Models;
 
 namespace EmbeddedStock.Controllers
 {
-    public class ComponentController : Controller
+    public class ESImageController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ComponentController(ApplicationDbContext context)
+        public ESImageController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Component
+        // GET: ESImage
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Components.Include(c => c.ComponentType);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _context.ESImages.ToListAsync());
         }
 
-        // GET: Component/Details/5
+        // GET: ESImage/Details/5
         public async Task<IActionResult> Details(long? id)
         {
             if (id == null)
@@ -34,43 +33,39 @@ namespace EmbeddedStock.Controllers
                 return NotFound();
             }
 
-            var component = await _context.Components
-                .Include(c => c.ComponentType)
-                .SingleOrDefaultAsync(m => m.ComponentId == id);
-            if (component == null)
+            var eSImage = await _context.ESImages
+                .SingleOrDefaultAsync(m => m.ESImageId == id);
+            if (eSImage == null)
             {
                 return NotFound();
             }
 
-            return View(component);
+            return View(eSImage);
         }
 
-        // GET: Component/Create
+        // GET: ESImage/Create
         public IActionResult Create()
         {
-            ViewData["ComponentTypeId"] = new SelectList(_context.ComponentTypes, "ComponentTypeId", "Name");
-
             return View();
         }
 
-        // POST: Component/Create
+        // POST: ESImage/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ComponentId,ComponentTypeId,Number,SerialNo,Status,AdminComment,UserComment,CurrentLoanInformationId")] Component component)
+        public async Task<IActionResult> Create([Bind("ESImageId,ImageMimeType,Thumbnail,ImageData")] ESImage eSImage)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(component);
+                _context.Add(eSImage);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ComponentTypeId"] = new SelectList(_context.ComponentTypes, "ComponentTypeId", "ComponentTypeId", component.ComponentTypeId);
-            return View(component);
+            return View(eSImage);
         }
 
-        // GET: Component/Edit/5
+        // GET: ESImage/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -78,23 +73,22 @@ namespace EmbeddedStock.Controllers
                 return NotFound();
             }
 
-            var component = await _context.Components.SingleOrDefaultAsync(m => m.ComponentId == id);
-            if (component == null)
+            var eSImage = await _context.ESImages.SingleOrDefaultAsync(m => m.ESImageId == id);
+            if (eSImage == null)
             {
                 return NotFound();
             }
-            ViewData["ComponentTypeId"] = new SelectList(_context.ComponentTypes, "ComponentTypeId", "Name", component.ComponentTypeId);
-            return View(component);
+            return View(eSImage);
         }
 
-        // POST: Component/Edit/5
+        // POST: ESImage/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("ComponentId,ComponentTypeId,Number,SerialNo,Status,AdminComment,UserComment,CurrentLoanInformationId")] Component component)
+        public async Task<IActionResult> Edit(long id, [Bind("ESImageId,ImageMimeType,Thumbnail,ImageData")] ESImage eSImage)
         {
-            if (id != component.ComponentId)
+            if (id != eSImage.ESImageId)
             {
                 return NotFound();
             }
@@ -103,12 +97,12 @@ namespace EmbeddedStock.Controllers
             {
                 try
                 {
-                    _context.Update(component);
+                    _context.Update(eSImage);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ComponentExists(component.ComponentId))
+                    if (!ESImageExists(eSImage.ESImageId))
                     {
                         return NotFound();
                     }
@@ -119,11 +113,10 @@ namespace EmbeddedStock.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ComponentTypeId"] = new SelectList(_context.ComponentTypes, "ComponentTypeId", "ComponentTypeId", component.ComponentTypeId);
-            return View(component);
+            return View(eSImage);
         }
 
-        // GET: Component/Delete/5
+        // GET: ESImage/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
@@ -131,31 +124,30 @@ namespace EmbeddedStock.Controllers
                 return NotFound();
             }
 
-            var component = await _context.Components
-                .Include(c => c.ComponentType)
-                .SingleOrDefaultAsync(m => m.ComponentId == id);
-            if (component == null)
+            var eSImage = await _context.ESImages
+                .SingleOrDefaultAsync(m => m.ESImageId == id);
+            if (eSImage == null)
             {
                 return NotFound();
             }
 
-            return View(component);
+            return View(eSImage);
         }
 
-        // POST: Component/Delete/5
+        // POST: ESImage/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var component = await _context.Components.SingleOrDefaultAsync(m => m.ComponentId == id);
-            _context.Components.Remove(component);
+            var eSImage = await _context.ESImages.SingleOrDefaultAsync(m => m.ESImageId == id);
+            _context.ESImages.Remove(eSImage);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ComponentExists(long id)
+        private bool ESImageExists(long id)
         {
-            return _context.Components.Any(e => e.ComponentId == id);
+            return _context.ESImages.Any(e => e.ESImageId == id);
         }
     }
 }

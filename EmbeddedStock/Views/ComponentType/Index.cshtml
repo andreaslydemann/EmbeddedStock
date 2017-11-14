@@ -1,0 +1,87 @@
+@model IEnumerable<EmbeddedStock.Models.ComponentType>
+
+@{
+    ViewData["Title"] = "Types";
+}
+
+<h3>Component Types</h3>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Info)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Datasheet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Manufacturer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WikiLink)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdminComment)
+            </th>
+            <th>
+                Categories
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Info)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Datasheet)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Manufacturer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WikiLink)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdminComment)
+                </td>
+                <td>
+                    @foreach (var cct in item.CategoryComponentTypes)
+                    {
+                        <p>@cct.Category.Name</p>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ComponentTypeId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ComponentTypeId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ComponentTypeId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
